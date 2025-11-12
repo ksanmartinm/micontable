@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PHP Application
   app:
@@ -33,7 +31,7 @@ services:
     container_name: dockerized-laravel-webserver
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./:/var/www/html
       # Use a single file mount instead of a directory
@@ -48,6 +46,8 @@ services:
     image: mysql:8.0
     container_name: dockerized-laravel-db
     restart: unless-stopped
+    env_file:
+      - .env 
     environment:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
@@ -58,7 +58,7 @@ services:
     networks:
       - dockerized-laravel-network
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   # Redis for Cache and Queue
   redis:
